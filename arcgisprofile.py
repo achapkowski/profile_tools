@@ -4,12 +4,14 @@ Manages and Assists Users to understand what is in their .arcgisprofile file.
 import os
 import configparser
 from pathlib import Path
+__version__ = "1.0.0"
 #--------------------------------------------------------------------------
 def list_profiles():
     """
     Lists the names of all the profiles on the system
     
-    :returns List
+    :returns: List
+    
     """
     home_dir = str(Path.home())
     profile_file = os.path.join(home_dir, ".arcgisprofile")
