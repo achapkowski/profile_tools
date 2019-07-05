@@ -4,6 +4,7 @@ Manages and Assists Users to understand what is in their .arcgisprofile file.
 import os
 import configparser
 from pathlib import Path
+import keyring
 __version__ = "1.0.0"
 #--------------------------------------------------------------------------
 def list_profiles():
@@ -76,11 +77,19 @@ def remove_profile(profile):
         if profile in profiles:
             config = configparser.ConfigParser()
             with open(profile_file, 'r') as reader:
-                config.readfp(reader)            
+                config.readfp(reader)     
+            data = dict(config.items(profile))
+            try:
+                keyring.delete_password(service_name="arcgis_python_api_profile_passwords", 
+                                        username=profile)            
+            except: pass
             config.remove_section(section=profile)
             with open(profile_file, "w") as f:
-                config.write(f)            
+                config.write(f)     
+
             return True
         else:
             raise ValueError("Profile not found.")
     return False
+
+    

@@ -30,4 +30,6 @@ setup(name="arcgisprofile",
       license="Apache 2.0",
       classifiers=arcgisprofile_classifiers,
       python_requires=">=3.4",
+      install_requires = ['keyring', 
+                          'arcgis>=1.5.1']
       )
